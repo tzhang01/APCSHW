@@ -23,7 +23,9 @@ public class driver{
 	System.out.println(L.get(0));
 	System.out.println(L.get(15));
 	System.out.println(L.get(30));
-	L.add(3, 7);
-	System.out.println(L);			   
+	//L.add(3, 7);
+	//System.out.println(L);
+	System.out.println(L.remove(3));
+	System.out.println(L.remove(15));			   
     }
 }
