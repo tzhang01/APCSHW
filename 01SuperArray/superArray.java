@@ -45,9 +45,16 @@ public class superArray{
 			return a[index];
 		}
 	}
-	public void set(int index, Object e){
+	public Object set(int index, Object e){
+		Object replaced = a[index];
 		a[index] = e;
-	}    
+		if (index < 0 || index >= size()){
+			System.out.println("Error: Index out of range");
+			return null;
+		}else{
+			return replaced;
+		}
+	}    	
 	public void add(int index, Object o){
 		Object[] list = new Object[a.length + 1];
 		for(int i = 0; i <list.length;i++){
