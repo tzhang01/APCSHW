@@ -70,4 +70,21 @@ public class superArray{
 		a = list;
 		}
 	}
+	public Object remove(int index){
+		if(index < 0 || index >= size()){
+			System.out.println("Error: Index out of range");
+			return null;
+		}else{
+			Object removed = a[index];
+			Object[] list = new Object[a.length -1];
+			for(int i=0; i<a.length;i++){
+				if(i < index){
+					list[i] = a[i];
+				}else if(i >index){
+					list[i-1] = a[i];
+				}
+			}
+			return removed;
+		}
+	}
 }
