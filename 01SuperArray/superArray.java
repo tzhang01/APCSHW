@@ -1,6 +1,7 @@
 public class superArray{
 	private Object[] a;
     private int current;
+
     public superArray(){
 		a = new Object[10];
    	}
@@ -15,76 +16,109 @@ public class superArray{
 		str += "]";
 		return str;
     }
+
+	public void add(){
+		resize(a.length +1);
+	}
     public void add(Object e){
-		Object[] list = new Object[a.length + 1];
-		list = a;
-		list[current] = e;
-		current ++;
-		a = list;
+		if(a[a.length-1] == null){
+			Object[] list = new Object[a.length + 1];
+			list = a;
+			list[current] = e;
+			current ++;
+			a = list;
+		}else{
+			add();
+			add(e);
+		}
     }
+	public void add(int index, Object o){
+		if(a[a.length-1] == null){
+			Object[] list = new Object[a.length + 1];
+			for(int i = 0; i <index; i++){
+				list[i] = a[i];
+			}
+			list[index] = o;
+			for(int i=index +1; i<list.length; i++){
+				list[i] = a[i];
+			}
+			a = list;
+		}else{
+			add();
+			add(index,o); 
+		}
+	}
+
     public int size(){
-		return a.length;
+		int s = 0;
+		if(a.length <=10){
+			for(int i =0; i <a.length; i++){
+				if(a[i] == null){
+					break;
+				}
+				s++;
+			}
+		}else{
+			return a.length;
+		}
+		return s;
     }
     public void resize(int newCapacity){
 		Object[] newArray = new Object[newCapacity];
-		for(int i = 0; i < a.length; i++){
-			newArray[i] = a[i];
-	    }
+		if(a.length <= newCapacity){
+			for(int i = 0; i < a.length; i++){
+				newArray[i] = a[i];
+	    	}
+		}else{
+			for(int i =0; i<newCapacity; i++){
+				newArray[i] = a[i];
+			}
+		}
 		a = newArray;
     }
 	public void clear(){
-		for(int i=0; i<a.length; i++){
-			a[i] = null;
+		Object[] newArray;
+		if(a.length <=10){
+			newArray = new Object[a.length];
+		}else{
+			newArray = new Object[10];
 		}
+		a = newArray;
+		current = 0;
 	}
 	public Object get(int index){
 		if(index < 0 || index >= size()){
-			System.out.println("Error: Index out of range");
-			return null;
+			throw new IndexOutOfBoundsException();
 		}else{
 			return a[index];
 		}
 	}
 	public Object set(int index, Object e){
-		Object replaced = a[index];
-		a[index] = e;
 		if (index < 0 || index >= size()){
-			System.out.println("Error: Index out of range");
-			return null;
+			throw new IndexOutOfBoundsException(); 
 		}else{
+			Object replaced = a[index];
+			a[index] = e;
 			return replaced;
 		}
 	}    	
-	public void add(int index, Object o){
-		Object[] list = new Object[a.length + 1];
-		for(int i = 0; i <list.length;i++){
-			if(i<index){
-				list[i] = a[i];
-			}else if(i == index){
-				list[i] = o;
-			}else if(i > index){
-				if(i < a.length){
-					list[i] = a[i+1];
-				}else{}
-			}
-		a = list;
-		}
-	}
-	public Object remove(int index){
-		if(index < 0 || index >= size()){
-			System.out.println("Error: Index out of range");
-			return null;
-		}else{
-			Object removed = a[index];
-			Object[] list = new Object[a.length -1];
-			for(int i=0; i<a.length;i++){
-				if(i < index){
-					list[i] = a[i];
-				}else if(i >index){
-					list[i-1] = a[i];
+	public void remove(int index){
+		Object hold = a[index];
+		if(index < a.length){
+			if(a.length <= 10){
+				a[index] = null;
+			}else{
+				Object[] newArray = new Object[a.length -1];
+				for(int i=0; i<index;i++){
+					newArray[i] = a[i];
 				}
+				for(int i=index; i <newArray.length; i++){
+					newArray[i] = a[i+1];
+				}
+				a = newArray;
 			}
-			return removed;
-		}
+		}else{
+			throw new IndexOutOfBoundsException();
+		}	
 	}
 }
