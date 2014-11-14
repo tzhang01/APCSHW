@@ -28,9 +28,9 @@ public class arrayListMethods{
 		L.add(0,0);
 		L.add(4,4); 
 		System.out.println(L);
-		//idk how to test the collapseDuplicates ):
-		//L.collapseDuplicates;
-		//System.out.println(L);
+		collapseDuplicates(L);
+		System.out.println(L);
+		
 		
 	}
 }
