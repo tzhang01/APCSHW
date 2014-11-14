@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class arrayListMethods{
+public class ArrayListMethods{
 	public static void collapseDuplicates(ArrayList<Integer> L){
 		for(int i=0; i < L.size()-1; i++){
 			if(L.get(i).equals(L.get(i+1))){
