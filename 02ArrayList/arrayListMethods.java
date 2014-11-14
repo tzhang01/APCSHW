@@ -30,6 +30,10 @@ public class arrayListMethods{
 		System.out.println(L);
 		collapseDuplicates(L);
 		System.out.println(L);
+		randomize(L);
+		System.out.println(L);
+		randomize(L);
+		System.out.println(L);
 		
 		
 	}
