@@ -9,6 +9,14 @@ public class arrayListMethods{
 			}
 		}
 	}
+	public static void randomize(ArrayList<Integer> L){
+		Random rand = new Random();
+		for(int i=0; i<L.size(); i++){
+			int holder = rand.nextInt(L.size());
+			L.set(i,holder);
+			L.set(holder, L.get(i));
+		}
+	}
 	
 	public static void main(String[]args){
 		ArrayList<Integer> L = new ArrayList<Integer>();
