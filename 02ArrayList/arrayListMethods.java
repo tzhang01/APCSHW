@@ -12,12 +12,18 @@ public class arrayListMethods{
 	
 	public static void main(String[]args){
 		ArrayList<Integer> L = new ArrayList<Integer>();
-		for(int i =0;i<99999; i++){
+		for(int i =0;i<10; i++){
 			L.add(i);
 		}
+		System.out.println(L);
+		L.add(9);
+		L.add(0,0);
+		L.add(4,4); 
+		System.out.println(L);
+		//idk how to test the collapseDuplicates ):
+		//L.collapseDuplicates;
 		//System.out.println(L);
-		//L.add(0);
-		//System.
+		
 	}
 }
 			
