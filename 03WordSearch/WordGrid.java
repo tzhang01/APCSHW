@@ -82,6 +82,25 @@ public class WordGrid{
 		}
 		return true;
 	}
+	public boolean addWordDiagonal(String word,int row,int col){
+		int row_ = row;
+		int column = col;
+		for(int i=0;i<word.length();i++){
+			if(word.charAt(i)== data[row][col]|| data[row_][column] != ' '){
+				return false;
+			}
+			row_++;
+			column++;
+		}
+		row_ = row;
+		column = col;
+		for(int i=0;i<word.length();i++){
+			data[row_][column] = word.charAt(i);
+			row_++;
+			column++;
+		}
+		return true;
+	}
 
 	//testing
 	public static void main(String[]args){
@@ -92,5 +111,7 @@ public class WordGrid{
 		//System.out.println("Should print False: " + data.addWordHorizontal("cat",4,4));
 		System.out.println("Should print True: " + data.addWordVertical("dog",3,1));
 		System.out.println(data);
+		System.out.println("Should print True: " + data.addWordDiagonal("life",4,2));
+		System.out.println(data);	
 	}
 }
