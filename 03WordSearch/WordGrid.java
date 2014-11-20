@@ -63,9 +63,12 @@ public class WordGrid{
      *or there are overlapping letters that do not match, then false is returned.
      */
     public boolean addWordHorizontal(String word,int row, int col){
-	int column = col;		
+	int column = col;	
+	if((row>=data.length) || (col >= data[row].length)){
+	    return false;
+	}
 	for(int i=0; i<word.length();i++){
-	    if(word.charAt(i)== data[row][col]|| data[row][column] != ' '){
+	    if(word.charAt(i)!= data[row][col]&& data[row][column] != ' '){
 		return false;
 	    }
 	    column++;
@@ -77,10 +80,22 @@ public class WordGrid{
 	}
 	return true;
     }
+    public boolean addWordHorizontalBackwards(String word, int row, int col){
+	String backward = "";
+	for(int i=word.length()-1;i>0;i++){
+	    backward += word.substring(i,i+1);
+	}
+	return addWordHorizontal(backward, row, col);
+	}
+
+
     public boolean addWordVertical(String word,int row,int col){
 	int row_ = row;
+	if((row>=data.length) || (col >= data[row].length)){
+	    return false;
+	}
 	for(int i=0;i<word.length();i++){
-	    if(word.charAt(i)== data[row][col]|| data[row_][col] != ' '){
+	    if(word.charAt(i)!= data[row][col]&& data[row_][col] != ' '){
 		return false;
 	    }
 	    row_++;
@@ -94,9 +109,12 @@ public class WordGrid{
     }
     public boolean addWordDiagonal(String word,int row,int col){
 	int row_ = row;
+	if((row>=data.length) || (col >= data[row].length)){
+	    return false;
+	}
 	int column = col;
 	for(int i=0;i<word.length();i++){
-	    if(word.charAt(i)== data[row][col]|| data[row_][column] != ' '){
+	    if(word.charAt(i)!= data[row][col]&& data[row_][column] != ' '){
 		return false;
 	    }
 	    row_++;
@@ -118,6 +136,10 @@ public class WordGrid{
 	data.fill();
 	System.out.println(data);
 	data.clear();
-	// System.out.println(addWordHorizontal
+	System.out.println(data.addWordHorizontal("cat",0,0));
+	System.out.println(data.addWordVertical("copy",0,0));
+       	System.out.println(data.addWordDiagonal("diet",2,2));
+      	System.out.println(data.addWordDiagonal("binder",4,5));
+	System.out.println(data);
     }
 }
