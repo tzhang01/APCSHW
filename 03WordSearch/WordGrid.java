@@ -1,145 +1,80 @@
 import java.util.*;
 
 public class WordGrid{
+	// instance variables
     private char[][]data;
-	
-	/**Initialize the grid to the size specified and fill all of the positions
-     *with spaces.
-     *@param row is the starting height of the WordGrid
-     *@param col is the starting width of the WordGrid
-     */
+	Random rand = new Random();
+	private ArrayList<String> wordBank = new ArrayList<String>();
+
+	//constructors
     public WordGrid(int rows, int cols){
 		data = new char [rows][cols];
 		clear();
     }
-	
-    //default constructor initializes a 5x5 grid
-    public WordGrid(){
-       	this(5,5);
-    }
-	
-    /**Set all values in the WordGrid to spaces ' '*/
-    public void clear(){
-	for(int i=0; i<data.length;i++){
-	    for(int j=0; j<data[i].length; j++){
-		data[i][j] = ' ';
-	    }
+	public WordGrid(){
+		this(10,10);
 	}
-    }
 
-    //fills up the grid for testing purposes
-    public void fill(){
-	for(int i=0;i<data.length;i++){
-	    for(int j=0;j<data[i].length;j++){
-		data[i][j] = '-';
-	    }
-	}
-    }
-
-
-    /**The proper formatting for a WordGrid is created in the toString.
-     *@return a String with each character separated by spaces, and each row
-     *separated by newlines.
-     */
+	//clears the grid
+	public void clear(){
+		for(int i=0; i<data.length;i++){
+		    for(int j=0; j<data[i].length; j++){
+			data[i][j] = '-';
+		    }
+		}
+   	}
+	
+	//*return a String with each character separated by spaces, and each row separated by newlines.
     public String toString(){
-	String result = "";
-	for(int i=0;i<data.length;i++){
-	    for(int j=0;j<data[i].length;j++){
-		result += data[i][j] + " ";
-	    }
-	    result += "\n";
-	}
-	return result;
+		String result = "";
+		for(int i=0;i<data.length;i++){
+		    for(int j=0;j<data[i].length;j++){
+			result += data[i][j] + " ";
+		    }
+			result += "\n";
+		}
+		return result;
     }
-
-    /**Attempts to add a given word to the specified position of the WordGrid.
-     *The word is added from left to right, must fit on the WordGrid, and must
-     *have a corresponding letter to match any letters that it overlaps.
-     *
-     *@param word is any text to be added to the word grid.
-     *@param row is the vertical locaiton of where you want the word to start.
-     *@param col is the horizontal location of where you want the word to start.
-     *@return true when the word is added successfully. When the word doesn't fit,
-     *or there are overlapping letters that do not match, then false is returned.
-     */
-    public boolean addWordHorizontal(String word,int row, int col){
-	int column = col;	
-	if((row>=data.length) || (col >= data[row].length)){
-	    return false;
+	
+	//checks elegibility of word
+	public Boolean checkWord(String word, int rows, int cols, int dx, int dy){
+		if((dx == 0 && dy ==0)||
+		    rows + dy*word.length() > data.length ||
+   			rows + dy*word.length() < 0 ||
+			cols + dx*word.length() > data[0].length ||
+			cols + dx*word.length() <0){
+			return false;
+		}else{
+			for(int i=0;i<word.length();i++){
+				if((data[rows][cols] != '-' && data[rows][cols] != word.charAt(i))){
+					return false;
+				}
+				rows +=dy;
+				cols +=dx;
+			}
+		}
+		return true;
 	}
-	for(int i=0; i<word.length();i++){
-	    if(word.charAt(i)!= data[row][col]&& data[row][column] != ' '){
-		return false;
-	    }
-	    column++;
+	
+	//adds word to grid if eligible
+	public boolean addWord(String word){
+		int rows = rand.nextInt(data.length);
+		int cols = rand.nextInt(data[0].length);
+		int dx = rand.nextInt();
+		int dy = rand.nextInt();
+		if(checkWord(word, rows, cols, dx, dy)){
+			for(int i=0; i<word.length();i++){
+				data[rows][cols] = word.charAt(i);
+				rows +=dy;
+				cols +=dx;
+			}
+			wordBank.add(word);
+			return true;
+		}else{
+			return false;
+		}
 	}
-	column = col;
-	for(int i=0;i<word.length();i++){
-	    data[row][column] = word.charAt(i);
-	    column++;
-	}
-	return true;
-    }
-    public boolean addWordHorizontalBackwards(String word, int row, int col){
-	String backward = "";
-	for(int i=word.length()-1;i>0;i++){
-	    backward += word.substring(i,i+1);
-	}
-	return addWordHorizontal(backward, row, col);
-	}
-
-
-    public boolean addWordVertical(String word,int row,int col){
-	int row_ = row;
-	if((row>=data.length) || (col >= data[row].length)){
-	    return false;
-	}
-	for(int i=0;i<word.length();i++){
-	    if(word.charAt(i)!= data[row][col]&& data[row_][col] != ' '){
-		return false;
-	    }
-	    row_++;
-	}
-	row_ = row;
-	for(int i=0;i<word.length();i++){
-	    data[row_][col] = word.charAt(i);
-	    row_++;
-	}
-	return true;
-    }
-    public boolean addWordDiagonal(String word,int row,int col){
-	int row_ = row;
-	if((row>=data.length) || (col >= data[row].length)){
-	    return false;
-	}
-	int column = col;
-	for(int i=0;i<word.length();i++){
-	    if(word.charAt(i)!= data[row][col]&& data[row_][column] != ' '){
-		return false;
-	    }
-	    row_++;
-	    column++;
-	}
-	row_ = row;
-	column = col;
-	for(int i=0;i<word.length();i++){
-	    data[row_][column] = word.charAt(i);
-	    row_++;
-	    column++;
-	}
-	return true;
-    }
-    
-    //testing
-    public static void main(String[]args){
-	WordGrid data = new WordGrid(6,6);
-	data.fill();
-	System.out.println(data);
-	data.clear();
-	System.out.println(data.addWordHorizontal("cat",0,0));
-	System.out.println(data.addWordVertical("copy",0,0));
-       	System.out.println(data.addWordDiagonal("diet",2,2));
-      	System.out.println(data.addWordDiagonal("binder",4,5));
-	System.out.println(data);
-    }
 }
+			
+		
+  
