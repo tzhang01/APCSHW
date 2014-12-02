@@ -5,6 +5,7 @@ public class WordGrid{
     private char[][]data;
 	Random rand = new Random();
 	ArrayList<String> wordList = new ArrayList<String>();
+	private long seed;
 
 	//constructors
     public WordGrid(int rows, int cols){
@@ -121,6 +122,9 @@ public class WordGrid{
 			}
 		}
 		return words;
+	}
+	public void setSeed(long seed){
+		rand = new Random(seed);
 	}
 }
 			
