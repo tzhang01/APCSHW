@@ -111,6 +111,8 @@ public class WordGrid{
 			System.out.println("File does not exist");
 		}
 	}
+	
+	public String wordsInPuzzle()
 }
 			
 		
