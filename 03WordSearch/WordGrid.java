@@ -1,10 +1,10 @@
 import java.util.*;
-
+import java.io.*;
 public class WordGrid{
 	// instance variables
     private char[][]data;
 	Random rand = new Random();
-	private ArrayList<String> wordBank = new ArrayList<String>();
+	ArrayList<String> wordList = new ArrayList<String>();
 
 	//constructors
     public WordGrid(int rows, int cols){
@@ -68,10 +68,47 @@ public class WordGrid{
 				rows +=dy;
 				cols +=dx;
 			}
-			wordBank.add(word);
+			wordList.add(word);
 			return true;
 		}else{
 			return false;
+		}
+	}
+
+	public void fill(ArrayList<String> words){
+		for(int i=0;i<words.size();i++){
+			String word = words.remove(rand.nextInt(words.size()));
+			int tries = 25;
+			do{
+				if(addWord(word)){
+					tries = 0;
+				}else{
+					tries -= 1;
+				}
+			}while(tries >0);
+		}
+	}			
+		
+	public void loadWordsFromFiles(String filename, boolean fillRandomLetters){
+		try{
+			ArrayList<String> wordBank = new ArrayList<String>();
+			File f = new File(filename);
+			Scanner s = new Scanner(f);
+			while(s.hasNextLine()){
+				wordBank.add(s.nextLine());
+			}	
+			fill(wordBank);
+			if(fillRandomLetters){
+				for(int i=0;i<data.length;i++){
+					for(int j=0; j<data[i].length;j++){
+						if(data[i][j] =='-'){
+							data[i][j] = (char)(rand.nextInt('z' -'a'));
+						}
+					}
+				}
+			}
+		}catch(FileNotFoundException e){
+			System.out.println("File does not exist");
 		}
 	}
 }
