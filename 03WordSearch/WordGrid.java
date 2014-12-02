@@ -90,7 +90,7 @@ public class WordGrid{
 		}
 	}			
 		
-	public void loadWordsFromFiles(String filename, boolean fillRandomLetters){
+	public void loadWordsFromFile(String filename, boolean fillRandomLetters){
 		try{
 			ArrayList<String> wordBank = new ArrayList<String>();
 			File f = new File(filename);
