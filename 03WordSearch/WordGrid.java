@@ -103,7 +103,7 @@ public class WordGrid{
 				for(int i=0;i<data.length;i++){
 					for(int j=0; j<data[i].length;j++){
 						if(data[i][j] =='-'){
-							data[i][j] = (char)(rand.nextInt('z' -'a'));
+						    data[i][j] = (char)(rand.nextInt(26)+97);
 						}
 					}
 				}
