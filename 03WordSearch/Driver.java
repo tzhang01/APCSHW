@@ -20,7 +20,7 @@ public class Driver{
 			rows = Integer.parseInt(args[0]);
 			cols = Integer.parseInt(args[1]);
 			seedExists = true;	
-			if(args[3] == "1"){
+			if(args[3].equals("1")){
 				fillRandomLetters = false;
 			}
 		}else{
