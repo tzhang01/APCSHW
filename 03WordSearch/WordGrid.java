@@ -112,7 +112,16 @@ public class WordGrid{
 		}
 	}
 	
-	public String wordsInPuzzle()
+	public String wordsInPuzzle(){
+		String words = "";
+		for(int i=0;i<wordList.size();i++){
+			words += " " +wordList.get(i);
+			if((i+1) % 5 == 0){
+				words += "\n";
+			}
+		}
+		return words;
+	}
 }
 			
 		
