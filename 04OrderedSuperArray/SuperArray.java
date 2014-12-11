@@ -136,7 +136,23 @@ public class SuperArray{
 			a[j+1] = temp;
 		}
 	}
-	
+
+	public void selectionSort(){
+		for(int i=0;i<current;i++){
+			String small = a[i];
+			int target = i;
+			for(int j=i;j< current;j++){
+				if(small.compareTo(a[j])>= 0){
+					small = a[j];
+					target = j;
+				}
+			}
+			String temp = a[i];
+			a[i] = small;
+			a[target] = temp;
+		}
+	}
+
 	public int find(String target){
 		for(int i=0;i<size();i++){
 			if(a[i].equals(target)){
