@@ -124,17 +124,26 @@ public class SuperArray{
 	public void insertionSort(){
 		String temp ="";
 		for(int i=1;i<size();i++){
-			temp = data[i];
+			temp = a[i];
 			int j = i-1;
 			while(j>=0){
-				if(temp.compareTo(data[j])>0){
+				if(temp.compareTo(a[j])>0){
 					break;
 				}
-				data[j+1] = data[j];
+				a[j+1] = a[j];
 				j--;
 			}
-			data[j+1] = temp;
+			a[j+1] = temp;
 		}
+	}
+	
+	public int find(String target){
+		for(int i=0;i<size();i++){
+			if(a[i].equals(target)){
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }
