@@ -13,6 +13,30 @@ public class Sorts{
 		}
 	}
 
+	
+	public static void selection(int[] c){
+		for(int i=0;i<c.length;i++){
+			int small = c[i];
+			int target = i;
+			for(int j=i;j<c.length;j++){
+				if(small >=c[j]){
+					small = c[j];
+					target = j;
+				}
+			}
+			int temp = c[i];
+			c[i] = small;
+			c[target] = temp;
+		}
+	}
+
+	public String toString(){
+		String l = "";
+		for(int i=0; i<c.length;i++){
+			l += c[i] + " ";
+		}
+		return l;
+	}
 
 	public static void main(String[]args){
 		int[] a = new int[10];
