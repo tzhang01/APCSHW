@@ -13,6 +13,18 @@ public class Sorts{
 		}
 	}
 
+	public static void insertion(int[] c){
+		int temp;
+		for(int i=1;i<c.length;i++){
+			temp = c[i];
+			for(int j =i-1;j>=0;j--){
+				if(c[j] > c[i]){
+					c[j+1] = c[j];
+					c[j] = temp;
+				}
+			}
+		}
+	}
 	
 	public static void selection(int[] c){
 		for(int i=0;i<c.length;i++){
